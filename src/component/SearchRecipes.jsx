@@ -63,17 +63,19 @@ const SearchRecipes = (props) => {
 
   return (
     <>
-      <h2>New Recipe Search</h2>
+      <h1>Search For Recipes</h1>
+      <label>New Recipe Search: </label>
       <form onSubmit={handleSubmit}>
-        <label>Search for recipes:</label>
         <input
+          className="col-sm-5"
           type="text"
           id="searchInput"
           name="searchInput"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <label>Search By:</label>
+        <br></br>
+        <label>Search By: &nbsp;</label>
         <input
           type="radio"
           id="searchType"
@@ -81,7 +83,7 @@ const SearchRecipes = (props) => {
           value="recipeByName"
           onClick={handleChange}
         />
-        <label>By Name</label>
+        <label>By Name &nbsp;</label>
 
         <input
           type="radio"
@@ -90,16 +92,17 @@ const SearchRecipes = (props) => {
           value="recipeByIngredients"
           onClick={handleChange}
         />
-        <label>By Ingredient </label>
+        <label>By Ingredient &nbsp;</label>
 
         <button type="submit">Submit</button>
       </form>
-      <div>
+
+      <div className={styles.recipeBox}>
         {props.recipeDisplay.map((item) => (
           <div className={styles.recipeCard} key={item.id}>
             <img className={styles.img} src={item.image} alt={item.title} />
             <div className={styles.content}>
-              <p className={styles.dish}>{item.title}</p>
+              <p className={styles.cardtext}>{item.title}</p>
             </div>
             <button className={styles.contentButton}>View Recipe</button>
           </div>
