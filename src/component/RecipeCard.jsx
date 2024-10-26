@@ -5,6 +5,7 @@ import RecipeModal from "./RecipeModal";
 
 const RecipeCard = (props) => {
   const [showRecipeModal, setShowRecipeModal] = useState(false);
+  const [foodId, setFoodId] = useState(null);
 
   return (
     <div>
@@ -12,7 +13,7 @@ const RecipeCard = (props) => {
         <>
           <p>
             <span>
-              Toggle between <i>Search Recipe by Name</i> or{" "}
+              Toggle between <i>Search Recipe by Name</i> or
             </span>
           </p>
           <p>
@@ -38,7 +39,8 @@ const RecipeCard = (props) => {
                     className={styles.contentButton}
                     onClick={() => {
                       setShowRecipeModal(true);
-                      props.setFoodId(item.id);
+                      setFoodId(item.id);
+                      console.log(item.id);
                     }}
                   >
                     View Recipe
@@ -49,7 +51,10 @@ const RecipeCard = (props) => {
           </div>
           <div>
             {showRecipeModal && (
-              <RecipeModal setShowRecipeModal={setShowRecipeModal} />
+              <RecipeModal
+                foodId={foodId}
+                setShowRecipeModal={setShowRecipeModal}
+              />
             )}
           </div>
         </>

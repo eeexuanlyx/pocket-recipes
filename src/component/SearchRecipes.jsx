@@ -66,8 +66,10 @@ const SearchRecipes = (props) => {
   return (
     <>
       <h1>Search For Recipes</h1>
-      <label>New Recipe Search: </label>
+
       <form onSubmit={handleSubmit}>
+        <label htmlFor="searchInput">New Recipe Search: </label>
+        <br></br>
         <input
           className="col-sm-5"
           type="text"
@@ -77,33 +79,28 @@ const SearchRecipes = (props) => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <br></br>
-        <label>Search: &nbsp;</label>
         <input
           type="radio"
-          id="searchType"
+          id="recipeByName"
           name="searchType"
           value="recipeByName"
           onClick={handleChange}
         />
-        <label>By Name &nbsp;</label>
+        <label htmlFor="recipeByName">By Name &nbsp;</label>
 
         <input
           type="radio"
-          id="searchType"
+          id="recipeByIngredients"
           name="searchType"
           value="recipeByIngredients"
           onClick={handleChange}
         />
-        <label>By Ingredient &nbsp;</label>
+        <label htmlFor="recipeByIngredients">By Ingredient &nbsp;</label>
 
         <button type="submit">Submit</button>
       </form>
 
-      <RecipeCard
-        setFoodId={props.setFoodId}
-        isLoading={isLoading}
-        recipeDisplay={props.recipeDisplay}
-      />
+      <RecipeCard isLoading={isLoading} recipeDisplay={props.recipeDisplay} />
     </>
   );
 };
