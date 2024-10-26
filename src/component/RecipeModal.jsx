@@ -39,20 +39,26 @@ const OverLay = (props) => {
         <>
           <div className={styles.backdrop}>
             <div className={styles.modal}>
-              <h1>Food Details {recipeData.title}</h1>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-3">
-              <button className="col-md-3">favourite</button>
-              <button
-                className="col-md-3"
-                onClick={() => props.setShowRecipeModal(false)}
-              >
-                cancel
-              </button>
-              <div className="col-md-3"></div>
+              <h2>{recipeData.title}</h2>
+              <div>
+                <img
+                  className={styles.image}
+                  src={recipeData.image}
+                  alt={recipeData.title}
+                />
+                <span>
+                  <b>Servings:</b> {recipeData.servings}
+                </span>
+                <span>
+                  <b>Prep Time:</b>
+                  {recipeData.readyInMinutes}
+                </span>
+                <span>{recipeData.vegetarian}</span>
+              </div>
+              <div>
+                <button>Favourite</button>
+                <button>Close</button>
+              </div>
             </div>
           </div>
         </>

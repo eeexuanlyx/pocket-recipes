@@ -40,7 +40,6 @@ const RecipeCard = (props) => {
                     onClick={() => {
                       setShowRecipeModal(true);
                       setFoodId(item.id);
-                      console.log(item.id);
                     }}
                   >
                     View Recipe
