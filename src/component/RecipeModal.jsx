@@ -7,6 +7,7 @@ import { TbMeat } from "react-icons/tb";
 import { LuVegan } from "react-icons/lu";
 import { IoTimerOutline } from "react-icons/io5";
 import { GiMeal } from "react-icons/gi";
+import RecipeInfo from "./RecipeInfo";
 
 const OverLay = (props) => {
   const URL = `https://api.spoonacular.com/recipes/${props.foodId}/information?`;
@@ -55,18 +56,20 @@ const OverLay = (props) => {
                 </div>
                 <div className={styles.miscs}>
                   <div>
-                    <button>Favourite</button>
                     <button onClick={() => props.setShowRecipeModal(false)}>
                       Close
                     </button>
+                    <button>Favourite</button>
                   </div>
                   <div className={styles.miscs2}>
                     <p>
                       <GiMeal />
                       Servings: {recipeData.servings}
                     </p>
-                    <IoTimerOutline />
-                    Prep Time: {recipeData.readyInMinutes}
+                    <p>
+                      <IoTimerOutline />
+                      Prep Time: {recipeData.readyInMinutes}
+                    </p>
                     {recipeData.vegetarian ? (
                       <p>
                         <FaLeaf />
@@ -86,7 +89,12 @@ const OverLay = (props) => {
                   </div>
                 </div>
               </div>
-              <h2>Ingredients</h2>
+              <div>
+                <h2>Ingredients</h2>
+                <div className={styles.list}>
+                  <RecipeInfo recipeData={recipeData} />
+                </div>
+              </div>
             </div>
           </div>
         </>
