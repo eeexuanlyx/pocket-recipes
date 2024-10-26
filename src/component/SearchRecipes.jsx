@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./RecipeCard.module.css";
 import { useState } from "react";
+import RecipeCard from "./RecipeCard";
 
 const initialState = {
   searchInput: "",
@@ -14,6 +14,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const SearchRecipes = (props) => {
   const [formData, setFormData] = useState(initialState);
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const getRecipesByName = async () => {
     try {
@@ -55,6 +56,7 @@ const SearchRecipes = (props) => {
       getRecipesByName();
     } else getRecipesByIngredients();
     setFormData(initialState);
+    setIsLoading(false);
   };
 
   const handleChange = ({ target }) => {
@@ -75,7 +77,7 @@ const SearchRecipes = (props) => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <br></br>
-        <label>Search By: &nbsp;</label>
+        <label>Search: &nbsp;</label>
         <input
           type="radio"
           id="searchType"
@@ -97,17 +99,11 @@ const SearchRecipes = (props) => {
         <button type="submit">Submit</button>
       </form>
 
-      <div className={styles.recipeBox}>
-        {props.recipeDisplay.map((item) => (
-          <div className={styles.recipeCard} key={item.id}>
-            <img className={styles.img} src={item.image} alt={item.title} />
-            <div className={styles.content}>
-              <p className={styles.cardtext}>{item.title}</p>
-            </div>
-            <button className={styles.contentButton}>View Recipe</button>
-          </div>
-        ))}
-      </div>
+      <RecipeCard
+        setFoodId={props.setFoodId}
+        isLoading={isLoading}
+        recipeDisplay={props.recipeDisplay}
+      />
     </>
   );
 };

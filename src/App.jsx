@@ -7,6 +7,8 @@ import { useState } from "react";
 
 const App = () => {
   const [recipeDisplay, setRecipeDisplay] = useState([]);
+  const [foodId, setFoodId] = useState("");
+
   return (
     <>
       <NavBar />
@@ -25,6 +27,7 @@ const App = () => {
             <SearchRecipes
               recipeDisplay={recipeDisplay}
               setRecipeDisplay={setRecipeDisplay}
+              setFoodId={setFoodId}
             />
           }
         />
