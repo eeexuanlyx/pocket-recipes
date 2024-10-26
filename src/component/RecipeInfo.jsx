@@ -7,8 +7,8 @@ const RecipeInfo = ({ recipeData }) => {
       <div>
         {recipeData.extendedIngredients ? (
           <ul className={styles.list}>
-            {recipeData.extendedIngredients.map((item) => (
-              <li>
+            {recipeData.extendedIngredients.map((item, idx) => (
+              <li key={idx}>
                 {item.name}, {item.amount} {item.unit}
               </li>
             ))}
@@ -20,8 +20,8 @@ const RecipeInfo = ({ recipeData }) => {
       <div>
         {recipeData.analyzedInstructions ? (
           <ol className={styles.list2}>
-            {recipeData.analyzedInstructions[0].steps.map((item) => (
-              <li>{item.step}</li>
+            {recipeData.analyzedInstructions[0].steps.map((item, idx) => (
+              <li key={idx}>{item.step}</li>
             ))}
           </ol>
         ) : (

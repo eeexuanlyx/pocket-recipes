@@ -5,7 +5,7 @@ import RecipeCard from "./RecipeCard";
 
 const initialState = {
   searchInput: "",
-  searchType: "",
+  searchType: "recipeByName",
 };
 
 const URL = "https://api.spoonacular.com/recipes/complexSearch";
@@ -13,12 +13,13 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 const SearchRecipes = (props) => {
   const [formData, setFormData] = useState(initialState);
-  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const getRecipesByName = async () => {
     try {
-      const res = await fetch(`${URL}?query=${query}&apiKey=${apiKey}`);
+      const res = await fetch(
+        `${URL}?query=${formData.searchInput}&apiKey=${apiKey}`
+      );
 
       if (!res.ok) {
         throw new Error("getting data error");
@@ -35,7 +36,7 @@ const SearchRecipes = (props) => {
   const getRecipesByIngredients = async () => {
     try {
       const res = await fetch(
-        `${URL}?includeIngredients=${query}&apiKey=${apiKey}`
+        `${URL}?includeIngredients=${formData.searchInput}&apiKey=${apiKey}`
       );
 
       if (!res.ok) {
@@ -75,8 +76,8 @@ const SearchRecipes = (props) => {
           type="text"
           id="searchInput"
           name="searchInput"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleChange}
+          value={formData.searchInput}
         />
         <br></br>
         <input
