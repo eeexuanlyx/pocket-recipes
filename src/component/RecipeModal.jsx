@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from "./RecipeModal.module.css";
 import { useState } from "react";
+import { FaLeaf } from "react-icons/fa";
+import { TbMeat } from "react-icons/tb";
+import { LuVegan } from "react-icons/lu";
+import { IoTimerOutline } from "react-icons/io5";
+import { GiMeal } from "react-icons/gi";
 
 const OverLay = (props) => {
   const URL = `https://api.spoonacular.com/recipes/${props.foodId}/information?`;
@@ -40,25 +45,48 @@ const OverLay = (props) => {
           <div className={styles.backdrop}>
             <div className={styles.modal}>
               <h2>{recipeData.title}</h2>
-              <div>
-                <img
-                  className={styles.image}
-                  src={recipeData.image}
-                  alt={recipeData.title}
-                />
-                <span>
-                  <b>Servings:</b> {recipeData.servings}
-                </span>
-                <span>
-                  <b>Prep Time:</b>
-                  {recipeData.readyInMinutes}
-                </span>
-                <span>{recipeData.vegetarian}</span>
+              <div className={styles.recipeTop}>
+                <div>
+                  <img
+                    className={styles.image}
+                    src={recipeData.image}
+                    alt={recipeData.title}
+                  />
+                </div>
+                <div className={styles.miscs}>
+                  <div>
+                    <button>Favourite</button>
+                    <button onClick={() => props.setShowRecipeModal(false)}>
+                      Close
+                    </button>
+                  </div>
+                  <div className={styles.miscs2}>
+                    <p>
+                      <GiMeal />
+                      Servings: {recipeData.servings}
+                    </p>
+                    <IoTimerOutline />
+                    Prep Time: {recipeData.readyInMinutes}
+                    {recipeData.vegetarian ? (
+                      <p>
+                        <FaLeaf />
+                        Vegetarian
+                      </p>
+                    ) : (
+                      <p>
+                        <TbMeat />
+                        Non-Vegetarian
+                      </p>
+                    )}
+                    {recipeData.vegan && (
+                      <p>
+                        <LuVegan /> Vegan
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div>
-                <button>Favourite</button>
-                <button>Close</button>
-              </div>
+              <h2>Ingredients</h2>
             </div>
           </div>
         </>
