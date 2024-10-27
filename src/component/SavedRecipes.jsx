@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaLeaf } from "react-icons/fa";
@@ -6,7 +7,7 @@ import { TbMeat } from "react-icons/tb";
 import { LuVegan } from "react-icons/lu";
 import { IoTimerOutline } from "react-icons/io5";
 import { GiMeal } from "react-icons/gi";
-import LoadingSpinner from "./LoadingSpinner.module.css";
+import styles from "./SavedRecipes.module.css";
 
 const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -14,18 +15,18 @@ const SavedRecipes = () => {
   const [selection, setSelection] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [recipeId, setRecipeId] = useState(null);
+  const navigate = useNavigate();
+
+  const airtableApiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
+  const airtableBaseId = import.meta.env.VITE_AIRTABLE_BASE_ID;
+  const airtableTableId = import.meta.env.VITE_AIRTABLE_TABLE_ID;
 
   const getSavedData = async (signal) => {
     setIsLoading(true);
     setError(null);
 
-    const airtableApiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
-    const airtableBaseId = import.meta.env.VITE_AIRTABLE_BASE_ID;
-    const airtableTableId = import.meta.env.VITE_AIRTABLE_TABLE_ID;
-
     const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}`;
-
-    // ?fields[]=Title&fields[]=Image&fields[]=Minutes&fields[]=Vegetarian&fields[]=Vegan&fields[]=Ingredients&fields[]=Instructions&sort[0][field]=Title&sort[0][direction]=asc
 
     try {
       const res = await fetch(airtableUrl, {
@@ -48,15 +49,11 @@ const SavedRecipes = () => {
         //if user aborted previos fetch, ignore
         setError(error.message);
       }
-      setError(error.message);
     }
     setIsLoading(false);
   };
 
   const getTitles = async (signal) => {
-    const airtableApiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
-    const airtableBaseId = import.meta.env.VITE_AIRTABLE_BASE_ID;
-    const airtableTableId = import.meta.env.VITE_AIRTABLE_TABLE_ID;
     const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}?filterByFormula={Title}='${selection}'`;
 
     try {
@@ -79,10 +76,9 @@ const SavedRecipes = () => {
       setDataByTitle(data.records);
       console.log(data.records);
     } catch (error) {
-      if (error.name !== "AnortError") {
+      if (error.name !== "AbortError") {
         setError(error.message);
       }
-      setError(error.message);
     }
   };
 
@@ -110,6 +106,29 @@ const SavedRecipes = () => {
     }
   }, [selection]); //Fetch recipes on selection change
 
+  const removeRecipe = async (recipeId) => {
+    const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}/${recipeId}`;
+
+    try {
+      const res = await fetch(airtableUrl, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${airtableApiKey}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw new Error("cannot delete recipe");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+    alert("Recipe removed.");
+    setSelection("");
+    await getSavedData();
+    navigate("/saved-recipes");
+  };
+
   return (
     <div>
       <div className="container">
@@ -122,11 +141,15 @@ const SavedRecipes = () => {
               onChange={handleSelectionChange}
               value={selection}
             >
-              {savedRecipes.map((recipe, idx) => (
-                <option key={idx} value={recipe.fields.Title}>
-                  {recipe.fields.Title}
-                </option>
-              ))}
+              {savedRecipes.length > 0 ? (
+                savedRecipes.map((recipe, idx) => (
+                  <option key={idx} value={recipe.fields.Title}>
+                    {recipe.fields.Title}
+                  </option>
+                ))
+              ) : (
+                <option>No saved recipes</option>
+              )}
             </select>
           </div>
         </section>
@@ -136,6 +159,7 @@ const SavedRecipes = () => {
             dataByTitle && ( //data not loading and data is not null,
               <div>
                 {dataByTitle.map((recipe, idx) => {
+                  console.log(dataByTitle);
                   return (
                     <div key={idx}>
                       <div>
@@ -143,22 +167,20 @@ const SavedRecipes = () => {
                         <div>
                           <div>
                             <img
+                              className={styles.img}
                               src={recipe.fields.Image}
                               alt={recipe.fields.Title}
                             />
                           </div>
                           <div>
-                            <div>
-                              <button>Remove</button>
-                            </div>
-                            <div>
+                            <div className={styles.miscs}>
                               <p>
                                 <GiMeal />
                                 Servings: {recipe.fields.Servings}
                               </p>
                               <p>
                                 <IoTimerOutline />
-                                Prep Time: {recipe.fields.Minutes}
+                                Prep Time: {recipe.fields.Minutes} Mins
                               </p>
                               {recipe.fields.Vegetarian ? (
                                 <p>
@@ -176,6 +198,15 @@ const SavedRecipes = () => {
                                   <LuVegan /> Vegan
                                 </p>
                               )}
+
+                              <button
+                                onClick={() => {
+                                  setRecipeId(recipe.id);
+                                  removeRecipe(recipe.id);
+                                }}
+                              >
+                                Remove
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -183,7 +214,7 @@ const SavedRecipes = () => {
                           <div>
                             <div>
                               <h3>Ingredients</h3>
-                              <ul>
+                              <ul className={styles.list}>
                                 {recipe.fields.Ingredients &&
                                   recipe.fields.Ingredients.split(",").map(
                                     (ingredient, idx) => (
@@ -214,7 +245,7 @@ const SavedRecipes = () => {
 
           {isLoading && (
             <div className="centered">
-              <LoadingSpinner />
+              <p>Loading...</p>
             </div>
           )}
 

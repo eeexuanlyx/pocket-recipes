@@ -52,6 +52,7 @@ const OverLay = (props) => {
         },
         body: JSON.stringify({
           fields: {
+            id: recipeData.id,
             Title: recipeData.title,
             Servings: recipeData.servings,
             Image: recipeData.image,
@@ -114,7 +115,7 @@ const OverLay = (props) => {
                     </p>
                     <p>
                       <IoTimerOutline />
-                      Prep Time: {recipeData.readyInMinutes}
+                      Prep Time: {recipeData.readyInMinutes} Mins
                     </p>
                     {recipeData.vegetarian ? (
                       <p>
