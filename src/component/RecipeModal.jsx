@@ -37,6 +37,50 @@ const OverLay = (props) => {
     }
   }, [props.foodId]);
 
+  const postRecipeToAirtable = async (recipeData) => {
+    const airtableApiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
+    const airtableBaseId = import.meta.env.VITE_AIRTABLE_BASE_ID;
+    const airtableTableId = import.meta.env.VITE_AIRTABLE_TABLE_ID;
+    const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}`;
+
+    try {
+      const res = await fetch(airtableUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${airtableApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fields: {
+            Title: recipeData.title,
+            Servings: recipeData.servings,
+            Image: recipeData.image,
+            Minutes: recipeData.readyInMinutes,
+            Vegetarian: recipeData.vegetarian,
+            Vegan: recipeData.vegan,
+            Ingredients: recipeData.extendedIngredients
+              .map((item) => `${item.amount} ${item.unit} ${item.name}`)
+              .join(", "),
+            Instructions: recipeData.analyzedInstructions[0].steps
+              .map((item) => item.step)
+              .join("|"),
+          },
+        }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(`Failed to save recipe: ${errorData.message}`);
+      }
+
+      const data = await res.json();
+      console.log("recipe saved:", data);
+      alert("Recipe saved successfully.");
+    } catch (error) {
+      console.error("error saving recipe:", error);
+      alert("Failed to save recipe.");
+    }
+  };
+
   return (
     <>
       {isLoadingRecipe ? (
@@ -59,7 +103,9 @@ const OverLay = (props) => {
                     <button onClick={() => props.setShowRecipeModal(false)}>
                       Close
                     </button>
-                    <button>Favourite</button>
+                    <button onClick={() => postRecipeToAirtable(recipeData)}>
+                      Favourite
+                    </button>
                   </div>
                   <div className={styles.miscs2}>
                     <p>
@@ -90,7 +136,6 @@ const OverLay = (props) => {
                 </div>
               </div>
               <div>
-                <h2>Ingredients</h2>
                 <div className={styles.list}>
                   <RecipeInfo recipeData={recipeData} />
                 </div>

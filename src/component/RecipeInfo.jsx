@@ -5,6 +5,7 @@ const RecipeInfo = ({ recipeData }) => {
   return (
     <>
       <div>
+        <h2>Ingredients</h2>
         {recipeData.extendedIngredients ? (
           <ul className={styles.list}>
             {recipeData.extendedIngredients.map((item, idx) => (
@@ -18,6 +19,7 @@ const RecipeInfo = ({ recipeData }) => {
         )}
       </div>
       <div>
+        <h2>Instructions</h2>
         {recipeData.analyzedInstructions ? (
           <ol className={styles.list2}>
             {recipeData.analyzedInstructions[0].steps.map((item, idx) => (
