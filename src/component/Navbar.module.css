@@ -18,6 +18,8 @@
 
 .navItem {
   display: inline;
+  font-family: "chewy", sans-serif;
+  font-size: 1.5em;
 }
 
 .navLink {

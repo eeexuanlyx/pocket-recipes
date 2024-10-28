@@ -8,17 +8,16 @@
   --label: #1684a5;
 }
 
-a {
-  color: #4551d4;
-}
-
 body {
-  background-image: url("background.jpg");
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url("background.jpg");
   padding: 16px;
   display: flex;
   flex-direction: column;
-  background-color: var(--primary-color);
-  color: var(--text);
+  font-family: "Arima";
 }
 
 #root {
@@ -36,30 +35,70 @@ li {
   margin-right: 16px;
 }
 
-label {
-  margin: 16px 0px;
-  font-weight: bold;
-  color: var(--label);
-}
-
-.label2 {
-  margin: 16px 0px;
-  font-weight: bold;
-  color: var(--label-by);
-}
-
 input {
   padding: 8px;
 }
 
+/* Hide the radio button */
+input[type="radio"] {
+  display: none;
+}
+
+/* Style the label to look like a button */
+.label2 {
+  display: inline-block;
+  padding: 8px 10px;
+  border: 2px solid var(--nav);
+  border-radius: 8px;
+  background-color: white;
+  color: var(--label-by);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-right: 10px;
+  font-family: "Caveat Brush", sans-serif;
+  font-size: 1.2em;
+}
+
+/* Hover effect */
+.label2:hover {
+  background-color: rgba(236, 135, 4, 0.1);
+  color: var(--label-by);
+}
+
+/* Active state when radio button is checked */
+input[type="radio"]:checked + .label2 {
+  background-color: var(--label-by);
+  color: white;
+}
+
 button {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 8px;
   background-color: var(--button);
   color: var(--text);
   font-weight: bold;
+  font-family: "Caveat Brush", sans-serif;
+  font-size: 1.2em;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+}
+
+.h1 {
+  font-family: "Matemasie", sans-serif;
+  color: var(--label-by);
+  font-size: 2.5em;
+  text-shadow: 5px 3px var(--text);
 }
 
 h2 {
-  font-size: 1em;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text);
+  font-family: "Arima", sans-serif;
 }
 
 .centered {
@@ -74,4 +113,19 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.appName {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(245, 199, 115, 0.817);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  border-radius: 0 0 8px 8px;
+  padding-bottom: 20px;
+  margin-top: 0px;
+  left: 10px;
+  right: 10px;
+  box-sizing: border-box;
 }

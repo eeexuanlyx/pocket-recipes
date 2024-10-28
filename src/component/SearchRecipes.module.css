@@ -12,3 +12,9 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.rs {
+  font-family: "Caveat Brush", sans-serif;
+  font-size: 1.3em;
+  color: var(--text);
+}

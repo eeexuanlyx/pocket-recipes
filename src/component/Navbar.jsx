@@ -12,7 +12,7 @@ const NavBar = () => {
         </li>
         <li className={styles.navItem}>
           <Link to="/saved-recipes" className={styles.navLink}>
-            Saved Recipes
+            Favourites
           </Link>
         </li>
       </ul>

@@ -100,12 +100,12 @@ const OverLay = (props) => {
                   />
                 </div>
                 <div className={styles.miscs}>
-                  <div>
-                    <button onClick={() => props.setShowRecipeModal(false)}>
-                      Close
-                    </button>
+                  <div className={styles.buttonGap}>
                     <button onClick={() => postRecipeToAirtable(recipeData)}>
                       Favourite
+                    </button>
+                    <button onClick={() => props.setShowRecipeModal(false)}>
+                      Close
                     </button>
                   </div>
                   <div className={styles.miscs2}>

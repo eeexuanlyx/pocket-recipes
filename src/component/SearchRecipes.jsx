@@ -34,11 +34,12 @@ const SearchRecipes = (props) => {
     }
   };
 
-  useEffect(() => {
-    getRecipesByName();
-    setFormData(initialState);
-    setIsLoading(false);
-  }, []); //gets random recipes on mount
+  //gets random recipes on mount
+  // useEffect(() => {
+  //   getRecipesByName();
+  //   setFormData(initialState);
+  //   setIsLoading(false);
+  // }, []);
 
   const getRecipesByIngredients = async () => {
     try {
@@ -74,10 +75,10 @@ const SearchRecipes = (props) => {
   return (
     <>
       <div className={styles.searchContainer}>
-        <h1>Search For Recipes</h1>
-
         <form onSubmit={handleSubmit}>
-          <label htmlFor="searchInput">New Recipe Search: </label>
+          <label className={styles.rs} htmlFor="searchInput">
+            New Recipe Search:{" "}
+          </label>
           <br></br>
           <div className={styles.recipeSearch}>
             <input

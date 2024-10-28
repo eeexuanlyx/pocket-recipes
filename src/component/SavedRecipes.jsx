@@ -144,7 +144,9 @@ const SavedRecipes = () => {
     <div>
       <div className={styles.bodycontainer}>
         <section>
-          <label htmlFor="selection">Select from your Favourites:</label>
+          <label className={styles.rs} htmlFor="selection">
+            Select from your Favourites:
+          </label>
           <div className="row">
             <select
               id="selection"
@@ -161,7 +163,7 @@ const SavedRecipes = () => {
             </select>
           </div>
           <br></br>
-          <h2>Recently Favourited:</h2>
+          <h3 className={styles.rs2}>Recently Favourited:</h3>
         </section>
         <br />
         <section>
@@ -175,7 +177,7 @@ const SavedRecipes = () => {
                       <div>
                         <div>
                           <div className={styles.buttonContainer}>
-                            <h3>{recipe.fields.Title}</h3>
+                            <h2 className={styles.h2}>{recipe.fields.Title}</h2>
                             <button
                               onClick={() => {
                                 setRecipeId(recipe.id);
