@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-
 import NavBar from "./component/Navbar";
 import SearchRecipes from "./component/SearchRecipes";
 import SavedRecipes from "./component/SavedRecipes";
@@ -16,17 +15,11 @@ const App = () => {
           path="/"
           element={
             <main>
-              <h1>Pocket Recipes</h1>
+              <SearchRecipes
+                recipeDisplay={recipeDisplay}
+                setRecipeDisplay={setRecipeDisplay}
+              />
             </main>
-          }
-        />
-        <Route
-          path="/search-recipes"
-          element={
-            <SearchRecipes
-              recipeDisplay={recipeDisplay}
-              setRecipeDisplay={setRecipeDisplay}
-            />
           }
         />
         <Route path="/saved-recipes" element={<SavedRecipes />} />

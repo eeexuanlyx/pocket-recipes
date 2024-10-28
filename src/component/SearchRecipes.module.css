@@ -1,0 +1,14 @@
+.searchContainer {
+  background-color: rgba(255, 255, 255, 0.938);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin: 50px;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+.recipeSearch {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

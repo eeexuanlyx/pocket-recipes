@@ -50,7 +50,7 @@ const SavedRecipes = () => {
       console.log(sortedData);
     } catch (error) {
       if (error.name !== "AbortError") {
-        //if user aborted previos fetch, ignore
+        //if user aborted previous fetch, ignore
         setError(error.message);
       }
     }
@@ -112,7 +112,7 @@ const SavedRecipes = () => {
 
   useEffect(() => {
     if (savedRecipes.length > 0) {
-      // sets selection to the first recipe title of savedRecipes
+      // sets selection to the latest recipe title of savedRecipes (to display)
       setSelection(savedRecipes[savedRecipes.length - 1].fields.Title);
     }
   }, [getSavedData]);
@@ -142,7 +142,7 @@ const SavedRecipes = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className={styles.bodycontainer}>
         <section>
           <label htmlFor="selection">Select from your Favourites:</label>
           <div className="row">
@@ -173,9 +173,19 @@ const SavedRecipes = () => {
                   return (
                     <div key={idx}>
                       <div>
-                        <h2>{recipe.fields.Title}</h2>
                         <div>
-                          <div>
+                          <div className={styles.buttonContainer}>
+                            <h3>{recipe.fields.Title}</h3>
+                            <button
+                              onClick={() => {
+                                setRecipeId(recipe.id);
+                                removeRecipe(recipe.id);
+                              }}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                          <div className={styles.imgContainer}>
                             <img
                               className={styles.img}
                               src={recipe.fields.Image}
@@ -208,22 +218,13 @@ const SavedRecipes = () => {
                                   <LuVegan /> Vegan
                                 </p>
                               )}
-
-                              <button
-                                onClick={() => {
-                                  setRecipeId(recipe.id);
-                                  removeRecipe(recipe.id);
-                                }}
-                              >
-                                Remove
-                              </button>
                             </div>
                           </div>
                         </div>
                         <div>
                           <div>
                             <div>
-                              <h3>Ingredients</h3>
+                              <h2>Ingredients</h2>
                               <ul className={styles.list}>
                                 {recipe.fields.Ingredients &&
                                   recipe.fields.Ingredients.split(",").map(
@@ -234,7 +235,7 @@ const SavedRecipes = () => {
                               </ul>
                             </div>
                             <div>
-                              <h3>Instructions</h3>
+                              <h2>Instructions</h2>
                               <ol>
                                 {recipe.fields.Instructions &&
                                   recipe.fields.Instructions.split("|").map(

@@ -1,15 +1,24 @@
 /* src/index.css */
+:root {
+  --primary-color: #f4ce79;
+  --nav: #f57f4c;
+  --label-by: #d12f4fcb;
+  --button: #65becb;
+  --text: #7b3d0a;
+  --label: #1684a5;
+}
 
 a {
   color: #4551d4;
 }
 
 body {
+  background-image: url("background.jpg");
   padding: 16px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(240, 198, 105);
-  color: rgb(25, 136, 169);
+  background-color: var(--primary-color);
+  color: var(--text);
 }
 
 #root {
@@ -27,11 +36,16 @@ li {
   margin-right: 16px;
 }
 
-label,
-button {
+label {
   margin: 16px 0px;
   font-weight: bold;
-  color: #4551d4;
+  color: var(--label);
+}
+
+.label2 {
+  margin: 16px 0px;
+  font-weight: bold;
+  color: var(--label-by);
 }
 
 input {
@@ -39,8 +53,9 @@ input {
 }
 
 button {
-  background-color: #2b66c6;
-  color: antiquewhite;
+  background-color: var(--button);
+  color: var(--text);
+  font-weight: bold;
 }
 
 h2 {
@@ -53,4 +68,10 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
