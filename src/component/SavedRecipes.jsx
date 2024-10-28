@@ -8,6 +8,7 @@ import { LuVegan } from "react-icons/lu";
 import { IoTimerOutline } from "react-icons/io5";
 import { GiMeal } from "react-icons/gi";
 import styles from "./SavedRecipes.module.css";
+import LoadingSpinner from "./LoadingSpinner";
 
 const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -42,8 +43,11 @@ const SavedRecipes = () => {
       }
 
       const data = await res.json();
-      setSavedRecipes(data.records);
-      console.log(data.records);
+      const sortedData = data.records.sort((a, b) => {
+        return new Date(a.createdTime) - new Date(b.createdTime);
+      });
+      setSavedRecipes(sortedData);
+      console.log(sortedData);
     } catch (error) {
       if (error.name !== "AbortError") {
         //if user aborted previos fetch, ignore
@@ -106,6 +110,13 @@ const SavedRecipes = () => {
     }
   }, [selection]); //Fetch recipes on selection change
 
+  useEffect(() => {
+    if (savedRecipes.length > 0) {
+      // sets selection to the first recipe title of savedRecipes
+      setSelection(savedRecipes[savedRecipes.length - 1].fields.Title);
+    }
+  }, [getSavedData]);
+
   const removeRecipe = async (recipeId) => {
     const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}/${recipeId}`;
 
@@ -133,7 +144,7 @@ const SavedRecipes = () => {
     <div>
       <div className="container">
         <section>
-          <h2>Selection</h2>
+          <label htmlFor="selection">Select from your Favourites:</label>
           <div className="row">
             <select
               id="selection"
@@ -141,17 +152,16 @@ const SavedRecipes = () => {
               onChange={handleSelectionChange}
               value={selection}
             >
-              {savedRecipes.length > 0 ? (
+              {savedRecipes.length &&
                 savedRecipes.map((recipe, idx) => (
                   <option key={idx} value={recipe.fields.Title}>
                     {recipe.fields.Title}
                   </option>
-                ))
-              ) : (
-                <option>No saved recipes</option>
-              )}
+                ))}
             </select>
           </div>
+          <br></br>
+          <h2>Recently Favourited:</h2>
         </section>
         <br />
         <section>
@@ -245,7 +255,7 @@ const SavedRecipes = () => {
 
           {isLoading && (
             <div className="centered">
-              <p>Loading...</p>
+              <LoadingSpinner />
             </div>
           )}
 
