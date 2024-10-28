@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import styles from "./SearchRecipes.module.css";
 
@@ -33,6 +33,12 @@ const SearchRecipes = (props) => {
       console.error(error.message);
     }
   };
+
+  useEffect(() => {
+    getRecipesByName();
+    setFormData(initialState);
+    setIsLoading(false);
+  }, []); //gets random recipes on mount
 
   const getRecipesByIngredients = async () => {
     try {
