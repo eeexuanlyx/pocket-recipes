@@ -18,3 +18,14 @@
   font-size: 1.3em;
   color: var(--text);
 }
+
+.rs2 {
+  font-family: "Caveat Brush", sans-serif;
+  font-size: 1.2em;
+  color: var(--text);
+}
+
+.submitInfo {
+  display: flex;
+  flex-direction: column;
+}

@@ -32,10 +32,12 @@ const OverLay = (props) => {
       }
     };
     if (props.foodId) {
+      //if there is foodId( to ensure already passed down), get the data,
       getRecipeData();
       setIsLoadingRecipe(false);
     }
-  }, [props.foodId]);
+  }, [props.foodId]); //when user click view recipe
+  //food id passes down to the url to getRecipeData to fetch from API
 
   const postRecipeToAirtable = async (recipeData) => {
     const airtableApiKey = import.meta.env.VITE_AIRTABLE_API_KEY;

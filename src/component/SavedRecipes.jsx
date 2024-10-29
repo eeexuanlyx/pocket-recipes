@@ -59,7 +59,7 @@ const SavedRecipes = () => {
 
   const getTitles = async (signal) => {
     const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}?filterByFormula={Title}='${selection}'`;
-
+    //get recipes with the title
     try {
       const res = await fetch(
         airtableUrl,
@@ -87,7 +87,7 @@ const SavedRecipes = () => {
   };
 
   const handleSelectionChange = (event) => {
-    setSelection(event.target.value);
+    setSelection(event.target.value); //change selection to title
   };
 
   useEffect(() => {
@@ -151,10 +151,10 @@ const SavedRecipes = () => {
             <select
               id="selection"
               className="col-md-12"
-              onChange={handleSelectionChange}
-              value={selection}
+              onChange={handleSelectionChange} //triggers useEffect on selction change
+              value={selection} //title
             >
-              {savedRecipes.length &&
+              {savedRecipes.length && //display titles of saved recipes in drop down selection
                 savedRecipes.map((recipe, idx) => (
                   <option key={idx} value={recipe.fields.Title}>
                     {recipe.fields.Title}
@@ -170,17 +170,17 @@ const SavedRecipes = () => {
           {!isLoading &&
             dataByTitle && ( //data not loading and data is not null,
               <div>
-                {dataByTitle.map((recipe, idx) => {
+                {dataByTitle.map((recipe) => {
                   console.log(dataByTitle);
                   return (
-                    <div key={idx}>
+                    <div key={recipe.id}>
                       <div>
                         <div>
                           <div className={styles.buttonContainer}>
                             <h2 className={styles.h2}>{recipe.fields.Title}</h2>
                             <button
                               onClick={() => {
-                                setRecipeId(recipe.id);
+                                setRecipeId(recipe.id); //for deleting recipe by id
                                 removeRecipe(recipe.id);
                               }}
                             >

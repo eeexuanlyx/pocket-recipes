@@ -4,15 +4,14 @@ import { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import styles from "./SearchRecipes.module.css";
 
-const initialState = {
-  searchInput: "",
-  searchType: "recipeByName",
-};
-
-const URL = "https://api.spoonacular.com/recipes/complexSearch";
-const apiKey = import.meta.env.VITE_API_KEY;
-
 const SearchRecipes = (props) => {
+  const initialState = {
+    searchInput: "",
+    searchType: "recipeByName",
+  };
+  const URL = "https://api.spoonacular.com/recipes/complexSearch";
+
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [formData, setFormData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -64,12 +63,13 @@ const SearchRecipes = (props) => {
     if (formData.searchType === "recipeByName") {
       getRecipesByName();
     } else getRecipesByIngredients();
+
     setFormData(initialState);
     setIsLoading(false);
   };
 
-  const handleChange = ({ target }) => {
-    setFormData({ ...formData, [target.name]: target.value });
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   return (
@@ -77,7 +77,7 @@ const SearchRecipes = (props) => {
       <div className={styles.searchContainer}>
         <form onSubmit={handleSubmit}>
           <label className={styles.rs} htmlFor="searchInput">
-            New Recipe Search:{" "}
+            New Recipe Search:
           </label>
           <br></br>
           <div className={styles.recipeSearch}>
@@ -90,31 +90,37 @@ const SearchRecipes = (props) => {
               value={formData.searchInput}
             />
             <br></br>
-            <div className={styles.radioSubmit}>
-              <input
-                type="radio"
-                id="recipeByName"
-                name="searchType"
-                value="recipeByName"
-                onClick={handleChange}
-              />
-              <label className="label2" htmlFor="recipeByName">
-                By Name &nbsp;
-              </label>
+            <div className={styles.submitInfo}>
+              <div className={styles.radioSubmit}>
+                <input
+                  type="radio"
+                  id="recipeByName"
+                  name="searchType"
+                  value="recipeByName"
+                  onClick={handleChange}
+                />
+                <label className="label2" htmlFor="recipeByName">
+                  By Name &nbsp;
+                </label>
 
-              <input
-                type="radio"
-                id="recipeByIngredients"
-                name="searchType"
-                value="recipeByIngredients"
-                onClick={handleChange}
-              />
-              <label className="label2" htmlFor="recipeByIngredients">
-                By Ingredient &nbsp;
-              </label>
+                <input
+                  type="radio"
+                  id="recipeByIngredients"
+                  name="searchType"
+                  value="recipeByIngredients"
+                  onClick={handleChange}
+                />
+                <label className="label2" htmlFor="recipeByIngredients">
+                  By Ingredient &nbsp;
+                </label>
 
-              <button type="submit">Submit</button>
+                <button type="submit">Submit</button>
+              </div>
             </div>
+          </div>
+          <div className={styles.rs2} htmlFor="searchInput">
+            To search By Ingredients : each ingredient should be seperated with
+            a comma
           </div>
         </form>
       </div>
