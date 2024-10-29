@@ -22,6 +22,12 @@
   font-size: 1.5em;
 }
 
+@media (max-width: 480px) {
+  .navItem {
+    font-size: 1.3em;
+  }
+}
+
 .navLink {
   color: var(--nav);
   font-weight: bold;

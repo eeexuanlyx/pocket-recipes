@@ -30,6 +30,11 @@
   height: auto;
 }
 
+.imgContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .buttonGap {
   display: flex;
   gap: 20px;
@@ -53,4 +58,32 @@
 .favButton {
   background-color: var(--label-by);
   color: whitesmoke;
+}
+
+@media (max-width: 767px) {
+  .modal {
+    font-size: 18px;
+  }
+
+  .recipeTop {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    font-size: 16px;
+  }
+
+  .recipeTop {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttonGap {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
 }

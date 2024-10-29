@@ -47,7 +47,6 @@ const SavedRecipes = () => {
         return new Date(a.createdTime) - new Date(b.createdTime);
       });
       setSavedRecipes(sortedData);
-      console.log(sortedData);
     } catch (error) {
       if (error.name !== "AbortError") {
         //if user aborted previous fetch, ignore
@@ -78,7 +77,6 @@ const SavedRecipes = () => {
 
       const data = await res.json();
       setDataByTitle(data.records);
-      console.log(data.records);
     } catch (error) {
       if (error.name !== "AbortError") {
         setError(error.message);
@@ -134,7 +132,6 @@ const SavedRecipes = () => {
     } catch (error) {
       setError(error.message);
     }
-    alert("Recipe removed.");
     setSelection("");
     await getSavedData();
     navigate("/saved-recipes");
@@ -171,7 +168,6 @@ const SavedRecipes = () => {
             dataByTitle && ( //data not loading and data is not null,
               <div>
                 {dataByTitle.map((recipe) => {
-                  console.log(dataByTitle);
                   return (
                     <div key={recipe.id}>
                       <div>

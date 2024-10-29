@@ -11,8 +11,8 @@
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid red;
-  border-color: red transparent red transparent;
+  border: 6px solid var(--label-by);
+  border-color: var(--label-by) transparent var(--label-by) transparent;
   animation: spinner 1.2s linear infinite;
 }
 

@@ -13,6 +13,24 @@
   justify-content: space-evenly;
 }
 
+@media (max-width: 767px) {
+  .recipeSearch {
+    width: 80%;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipeSearch {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+  .searchContainer {
+    margin: 20px;
+  }
+}
+
 .rs {
   font-family: "Caveat Brush", sans-serif;
   font-size: 1.3em;

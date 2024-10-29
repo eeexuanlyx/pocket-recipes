@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from "react";
 import styles from "./RecipeCard.module.css";
 import RecipeModal from "./RecipeModal";
+import LoadingSpinner from "./LoadingSpinner";
 
 const RecipeCard = (props) => {
   const [showRecipeModal, setShowRecipeModal] = useState(false);
@@ -11,19 +12,9 @@ const RecipeCard = (props) => {
     <div>
       {props.isLoading ? (
         <>
-          <p>
-            <span>
-              Toggle between <i>Search Recipe by Name</i> or
-            </span>
-          </p>
-          <p>
-            <span>
-              <i>
-                Search Recipe By Ingredients : each ingredient should be
-                seperated with a comma
-              </i>
-            </span>
-          </p>
+          <div className="centered">
+            <LoadingSpinner />
+          </div>
         </>
       ) : (
         <>

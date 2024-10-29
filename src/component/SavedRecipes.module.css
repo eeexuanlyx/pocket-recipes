@@ -15,6 +15,20 @@
   align-self: center;
 }
 
+@media (max-width: 767px) {
+  .img {
+    width: 70vw;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 375px) {
+  .img {
+    width: 65vw;
+    height: auto;
+  }
+}
+
 .rs {
   font-family: "Caveat Brush", sans-serif;
   font-size: 1.3em;
@@ -37,6 +51,19 @@
   font-family: Verdana, Tahoma, sans-serif;
 }
 
+@media (max-width: 767px) {
+  .bodycontainer {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bodycontainer {
+    font-size: 14px;
+    margin: 20px;
+  }
+}
+
 .buttonContainer {
   display: flex;
   flex-direction: row;
@@ -48,7 +75,7 @@
   flex-direction: row;
   justify-content: center;
   padding-top: 10px;
-  padding: 10px 0px 10px 0px;
+  padding: 10px 0px 10px 10px;
 }
 
 .rs2 {

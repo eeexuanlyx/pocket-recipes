@@ -94,6 +94,12 @@ button:hover {
   text-shadow: 5px 3px var(--text);
 }
 
+@media (max-width: 480px) {
+  .h1 {
+    font-size: 2em;
+  }
+}
+
 h2 {
   font-size: 1.2em;
   font-weight: 600;

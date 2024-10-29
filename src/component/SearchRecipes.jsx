@@ -52,7 +52,6 @@ const SearchRecipes = (props) => {
 
       const data = await res.json();
       props.setRecipeDisplay(data.results);
-      console.log(data.results);
     } catch (error) {
       console.error(error.message);
     }
@@ -75,7 +74,7 @@ const SearchRecipes = (props) => {
   return (
     <>
       <div className={styles.searchContainer}>
-        <form onSubmit={handleSubmit}>
+        <form className={styles.searchForm} onSubmit={handleSubmit}>
           <label className={styles.rs} htmlFor="searchInput">
             New Recipe Search:
           </label>

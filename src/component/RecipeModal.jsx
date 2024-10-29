@@ -8,6 +8,7 @@ import { LuVegan } from "react-icons/lu";
 import { IoTimerOutline } from "react-icons/io5";
 import { GiMeal } from "react-icons/gi";
 import RecipeInfo from "./RecipeInfo";
+import LoadingSpinner from "./LoadingSpinner";
 
 const OverLay = (props) => {
   const URL = `https://api.spoonacular.com/recipes/${props.foodId}/information?`;
@@ -39,17 +40,13 @@ const OverLay = (props) => {
       }
 
       const data = await res.json();
-      console.log(data);
       setSavedRecipe(data.records);
-      console.log(data.records);
-      console.log(`whats  in ${savedRecipe}`);
     } catch (error) {
       if (error) {
         console.error(error.message);
       }
     }
     setIsLoadingSavedRecipes(false);
-    favourited();
   };
 
   useEffect(() => {
@@ -61,12 +58,10 @@ const OverLay = (props) => {
       favourited();
     }
   }, [savedRecipe, props.foodId]);
+  //reruns favourited when savedRecipe has the latest data, or when foodId changes
 
   const handleFavourite = async () => {
     if (!isLoadingSavedRecipes) {
-      // const newFave = savedRecipe.some((recipe) =>
-      //   recipe?.fields?.id?.includes(props.foodId)
-      // );
       const sameId = savedRecipe.filter(
         (recipe) => recipe.fields.id === props.foodId
       );
@@ -106,7 +101,6 @@ const OverLay = (props) => {
         }
 
         const data = await res.json();
-        console.log(data);
         setRecipeData(data);
       } catch (error) {
         console.error(error.message);
@@ -157,25 +151,24 @@ const OverLay = (props) => {
       }
 
       const data = await res.json();
-      console.log("recipe saved:", data);
-      alert("Recipe saved successfully.");
     } catch (error) {
       console.error("error saving recipe:", error);
-      alert("Failed to save recipe.");
     }
   };
 
   return (
     <>
       {isLoadingRecipe ? (
-        <p>Loading Recipe...</p>
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
       ) : (
         <>
           <div className={styles.backdrop}>
             <div className={styles.modal}>
               <h2>{recipeData.title}</h2>
               <div className={styles.recipeTop}>
-                <div>
+                <div className={styles.imgContainer}>
                   <img
                     className={styles.image}
                     src={recipeData.image}
