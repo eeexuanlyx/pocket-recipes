@@ -14,6 +14,87 @@ const OverLay = (props) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [recipeData, setRecipeData] = useState({});
   const [isLoadingRecipe, setIsLoadingRecipe] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
+  const [savedRecipe, setSavedRecipe] = useState([]);
+  const [isLoadingSavedRecipes, setIsLoadingSavedRecipes] = useState(true);
+
+  const getSavedRecipe = async () => {
+    setIsLoadingRecipe(true);
+    const airtableApiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
+    const airtableBaseId = import.meta.env.VITE_AIRTABLE_BASE_ID;
+    const airtableTableId = import.meta.env.VITE_AIRTABLE_TABLE_ID;
+
+    const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}`;
+
+    try {
+      const res = await fetch(airtableUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${airtableApiKey}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw new Error("getting data error");
+      }
+
+      const data = await res.json();
+      console.log(data);
+      setSavedRecipe(data.records);
+      console.log(data.records);
+      console.log(`whats  in ${savedRecipe}`);
+    } catch (error) {
+      if (error) {
+        console.error(error.message);
+      }
+    }
+    setIsLoadingSavedRecipes(false);
+    favourited();
+  };
+
+  useEffect(() => {
+    getSavedRecipe();
+  }, []);
+
+  useEffect(() => {
+    if (savedRecipe.length > 0 && props.foodId) {
+      favourited();
+    }
+  }, [savedRecipe, props.foodId]);
+
+  const handleFavourite = async () => {
+    if (!isLoadingSavedRecipes) {
+      // const newFave = savedRecipe.some((recipe) =>
+      //   recipe?.fields?.id?.includes(props.foodId)
+      // );
+      const sameId = savedRecipe.filter(
+        (recipe) => recipe.fields.id === props.foodId
+      );
+
+      if (sameId.length === 0) {
+        //if no same id, post to airtable, and disable button
+        await postRecipeToAirtable(recipeData);
+        setIsSaved(true);
+      } else {
+        setIsSaved(true);
+      }
+    } else {
+      console.error("Loading");
+    }
+  };
+
+  const favourited = () => {
+    const sameId = savedRecipe.filter(
+      (recipe) => recipe.fields.id === props.foodId
+    );
+
+    if (sameId.length > 0) {
+      //has same id
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  };
 
   useEffect(() => {
     const getRecipeData = async () => {
@@ -103,9 +184,16 @@ const OverLay = (props) => {
                 </div>
                 <div className={styles.miscs}>
                   <div className={styles.buttonGap}>
-                    <button onClick={() => postRecipeToAirtable(recipeData)}>
-                      Favourite
-                    </button>
+                    {isSaved ? (
+                      <button disabled={true}>Favourited</button>
+                    ) : (
+                      <button
+                        className={styles.favButton}
+                        onClick={handleFavourite}
+                      >
+                        Favourite
+                      </button>
+                    )}
                     <button onClick={() => props.setShowRecipeModal(false)}>
                       Close
                     </button>

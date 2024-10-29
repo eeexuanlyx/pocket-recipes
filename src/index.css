@@ -50,7 +50,7 @@ input[type="radio"] {
   padding: 8px 10px;
   border: 2px solid var(--nav);
   border-radius: 8px;
-  background-color: white;
+  background-color: whitesmoke;
   color: var(--label-by);
   cursor: pointer;
   font-weight: bold;
