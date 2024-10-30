@@ -178,7 +178,9 @@ const OverLay = (props) => {
                 <div className={styles.miscs}>
                   <div className={styles.buttonGap}>
                     {isSaved ? (
-                      <button disabled={true}>Favourited</button>
+                      <button className={styles.favButton} disabled={true}>
+                        Favourited
+                      </button>
                     ) : (
                       <button
                         className={styles.favButton}
@@ -199,6 +201,7 @@ const OverLay = (props) => {
                     <p>
                       <IoTimerOutline />
                       Prep Time: {recipeData.readyInMinutes} Mins
+                      {console.log(recipeData)};
                     </p>
                     {recipeData.vegetarian ? (
                       <p>

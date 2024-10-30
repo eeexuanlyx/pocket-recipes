@@ -34,11 +34,11 @@ const SearchRecipes = (props) => {
   };
 
   //gets random recipes on mount
-  // useEffect(() => {
-  //   getRecipesByName();
-  //   setFormData(initialState);
-  //   setIsLoading(false);
-  // }, []);
+  useEffect(() => {
+    getRecipesByName();
+    setFormData(initialState);
+    setIsLoading(false);
+  }, []);
 
   const getRecipesByIngredients = async () => {
     try {
