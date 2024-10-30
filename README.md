@@ -11,16 +11,20 @@ _Pocket Recipes_ is designed to allows users to search for recipes on the go, ev
 ## Technologies Used
 
 - `React Javascript`
+- `Node.js`
 - `Vite`
 - `HTML`
 - `CSS`
-- `vscode`
+- `Visual Studio Code`
+- `Airtable`
 
 ## Getting Started
 
+1. Ensure [Node.js](https://nodejs.org/en) is installed.
+
 1. Click the **fork** button at the top right of this page.
 
-2. Open your terminal (example gitbash, powershell), and clone to your desired folder.
+1. Open your terminal (example gitbash, powershell), and clone to your desired folder.
    `<your-username>` should be your github username.
 
 ```
@@ -78,7 +82,7 @@ VITE_AIRTABLE_TABLE_ID=<your-airtable-id>
 
 ## Running The Application
 
-In your terminal, run `npm start`.
+In your terminal, run `npm run dev`.
 
 Begin searching for recipes! Each favourited recipe will be stored in your Airtable workspace table. In the app under favourites tab, you may view / remove your favourites.
 
