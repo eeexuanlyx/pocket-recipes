@@ -3,6 +3,7 @@ import NavBar from "./component/Navbar";
 import SearchRecipes from "./component/SearchRecipes";
 import SavedRecipes from "./component/SavedRecipes";
 import { useState } from "react";
+import Footer from "./component/Footer";
 
 const App = () => {
   const [recipeDisplay, setRecipeDisplay] = useState([]);
@@ -27,6 +28,7 @@ const App = () => {
         />
         <Route path="/saved-recipes" element={<SavedRecipes />} />
       </Routes>
+      <Footer />
     </>
   );
 };

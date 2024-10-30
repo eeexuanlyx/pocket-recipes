@@ -1,0 +1,27 @@
+.footer {
+  background-color: rgba(245, 199, 115, 0.817);
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.7);
+  border-radius: 8px 8px 0px 0px;
+  text-align: center;
+  padding: 5px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-family: "Arima", sans-serif;
+  color: var(--text);
+  font-size: 17px;
+}
+
+.link {
+  color: var(--label-by);
+}
+
+.link:hover {
+  color: var(--label);
+}
+
+@media (min-width: 768px) {
+  .footer {
+    font-size: 20px;
+  }
+}
