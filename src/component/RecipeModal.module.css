@@ -60,6 +60,16 @@
   color: whitesmoke;
 }
 
+.favButton:hover {
+  background-color: #cd0836cb;
+}
+
+.favButton:disabled {
+  background-color: #c2304dca;
+  color: whitesmoke;
+  opacity: 0.8;
+}
+
 @media (max-width: 767px) {
   .modal {
     font-size: 18px;
