@@ -223,28 +223,26 @@ const SavedRecipes = () => {
                         </div>
                         <div>
                           <div>
-                            <div>
-                              <h2>Ingredients</h2>
-                              <ul className={styles.list}>
-                                {recipe.fields.Ingredients &&
-                                  recipe.fields.Ingredients.split(",").map(
-                                    (ingredient, idx) => (
-                                      <li key={idx}>{ingredient.trim()}</li>
-                                    )
-                                  )}
-                              </ul>
-                            </div>
-                            <div>
-                              <h2>Instructions</h2>
-                              <ol>
-                                {recipe.fields.Instructions &&
-                                  recipe.fields.Instructions.split("|").map(
-                                    (step, idx) => (
-                                      <li key={idx}>{step.trim()}</li>
-                                    )
-                                  )}
-                              </ol>
-                            </div>
+                            <h2>Ingredients</h2>
+                            <ul className={styles.list}>
+                              {recipe.fields.Ingredients &&
+                                recipe.fields.Ingredients.split(",").map(
+                                  (ingredient, idx) => (
+                                    <li key={idx}>{ingredient.trim()}</li>
+                                  )
+                                )}
+                            </ul>
+                          </div>
+                          <div>
+                            <h2>Instructions</h2>
+                            <ol>
+                              {recipe.fields.Instructions &&
+                                recipe.fields.Instructions.split("|").map(
+                                  (step, idx) => (
+                                    <li key={idx}>{step.trim()}</li>
+                                  )
+                                )}
+                            </ol>
                           </div>
                         </div>
                       </div>

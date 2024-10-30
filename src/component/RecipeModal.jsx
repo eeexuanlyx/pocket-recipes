@@ -11,7 +11,6 @@ import RecipeInfo from "./RecipeInfo";
 import LoadingSpinner from "./LoadingSpinner";
 
 const OverLay = (props) => {
-  const URL = `https://api.spoonacular.com/recipes/${props.foodId}/information?`;
   const apiKey = import.meta.env.VITE_API_KEY;
   const [recipeData, setRecipeData] = useState({});
   const [isLoadingRecipe, setIsLoadingRecipe] = useState(true);
@@ -93,6 +92,7 @@ const OverLay = (props) => {
 
   useEffect(() => {
     const getRecipeData = async () => {
+      const URL = `https://api.spoonacular.com/recipes/${props.foodId}/information?`;
       try {
         const res = await fetch(`${URL}apiKey=${apiKey}`);
 
