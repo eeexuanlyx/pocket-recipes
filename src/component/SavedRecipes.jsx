@@ -44,9 +44,13 @@ const SavedRecipes = () => {
 
       const data = await res.json();
       const sortedData = data.records.sort((a, b) => {
-        return new Date(a.createdTime) - new Date(b.createdTime);
+        return new Date(b.createdTime) - new Date(a.createdTime);
       });
       setSavedRecipes(sortedData);
+
+      if (sortedData.length > 0) {
+        setSelection(sortedData[0].fields.Title);
+      }
     } catch (error) {
       if (error.name !== "AbortError") {
         //if user aborted previous fetch, ignore
@@ -90,7 +94,12 @@ const SavedRecipes = () => {
 
   useEffect(() => {
     const controller = new AbortController();
-    getSavedData(controller.signal);
+
+    getSavedData(controller.signal).then((sortedData) => {
+      if (sortedData && sortedData.length > 0) {
+        setSelection(sortedData[0].fields.Title); // Set selection to the most recent recipe title
+      }
+    });
 
     return () => {
       controller.abort();
@@ -107,13 +116,6 @@ const SavedRecipes = () => {
       };
     }
   }, [selection]); //Fetch recipes on selection change
-
-  useEffect(() => {
-    if (savedRecipes.length > 0) {
-      // sets selection to the latest recipe title of savedRecipes (to display)
-      setSelection(savedRecipes[savedRecipes.length - 1].fields.Title);
-    }
-  }, [getSavedData]);
 
   const removeRecipe = async (recipeId) => {
     const airtableUrl = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}/${recipeId}`;
