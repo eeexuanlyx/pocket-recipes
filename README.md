@@ -10,7 +10,8 @@ _Pocket Recipes_ is designed to allows users to search for recipes on the go, ev
 
 ## Technologies Used
 
-- `Javascript`
+- `React Javascript`
+- `Vite`
 - `HTML`
 - `CSS`
 - `vscode`
