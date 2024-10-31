@@ -27,7 +27,6 @@ const SearchRecipes = (props) => {
 
       const data = await res.json();
       props.setRecipeDisplay(data.results);
-      console.log(data.results);
     } catch (error) {
       console.error(error.message);
     }
