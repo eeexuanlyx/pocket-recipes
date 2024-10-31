@@ -86,6 +86,18 @@ In your terminal, run `npm run dev`.
 
 Begin searching for recipes! Each favourited recipe will be stored in your Airtable workspace table. In the app under favourites tab, you may view / remove your favourites.
 
+Alernatively, the recipe data can also be removed via your Airtable.
+
+## Limitations & Future Enhancements
+
+As this program requires the use of Spoonacular API, there is a limit of 150 calls/day, therefore, if the recipe search hits the limit, user may only continue after it resets. _(Saved recipes are still accesible in favourites tab.)_
+
+You may also fork this repository and make necessary changes to fetch from your desired API.
+
+As data is needed to be stored in your Airtable API, the deployment of this program may be worked around with, such as implementing login or authentication features.
+
+A local storage version of this application can also be found in my repositories: [PocketRecipesApp](https://github.com/eeexuanlyx/PocketRecipesApp). This allows users to save the recipes to their own local storage device on their web browser.
+
 ## Planning Materials
 
 [Spoonacular API](https://spoonacular.com/food-api/) | [Airtable](https://airtable.com/) | [Postman](https://www.postman.com/) | [Image Generator](https://gemini.google.com/app) | [Google Fonts](https://fonts.google.com/selection/embed) | [React Developer Tools](https://react.dev/learn/react-developer-tools) | [React Icons](https://react-icons.github.io/react-icons/) | [Bootstrap](https://getbootstrap.com/)
