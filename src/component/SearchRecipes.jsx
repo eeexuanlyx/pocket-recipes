@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import styles from "./SearchRecipes.module.css";
 
-const SearchRecipes = (props) => {
+const SearchRecipes = () => {
   const initialState = {
     searchInput: "",
     searchType: "recipeByName",
@@ -14,6 +14,7 @@ const SearchRecipes = (props) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [formData, setFormData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(true);
+  const [recipeDisplay, setRecipeDisplay] = useState([]);
 
   const getRecipesByName = async () => {
     try {
@@ -26,7 +27,7 @@ const SearchRecipes = (props) => {
       }
 
       const data = await res.json();
-      props.setRecipeDisplay(data.results);
+      setRecipeDisplay(data.results);
     } catch (error) {
       console.error(error.message);
     }
@@ -50,7 +51,7 @@ const SearchRecipes = (props) => {
       }
 
       const data = await res.json();
-      props.setRecipeDisplay(data.results);
+      setRecipeDisplay(data.results);
     } catch (error) {
       console.error(error.message);
     }
@@ -123,7 +124,7 @@ const SearchRecipes = (props) => {
         </form>
       </div>
 
-      <RecipeCard isLoading={isLoading} recipeDisplay={props.recipeDisplay} />
+      <RecipeCard isLoading={isLoading} recipeDisplay={recipeDisplay} />
     </>
   );
 };

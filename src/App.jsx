@@ -6,8 +6,6 @@ import { useState } from "react";
 import Footer from "./component/Footer";
 
 const App = () => {
-  const [recipeDisplay, setRecipeDisplay] = useState([]);
-
   return (
     <>
       <div className="appName">
@@ -19,10 +17,7 @@ const App = () => {
           path="/"
           element={
             <main>
-              <SearchRecipes
-                recipeDisplay={recipeDisplay}
-                setRecipeDisplay={setRecipeDisplay}
-              />
+              <SearchRecipes />
             </main>
           }
         />
